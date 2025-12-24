@@ -1,0 +1,32 @@
+{
+  "youtube": {
+    "outputDir": "",
+    "lastUrl": "",
+    "playlistMode": false,
+    "quality": "best"
+  },
+  "spotify": {
+    "outputDir": "",
+    "lastUrl": "",
+    "playlistMode": false
+  },
+  "general": {
+    "embedThumbnails": true,
+    "embedMetadata": true,
+    "convertToM4A": true,
+    "parallelDownloads": 4,
+    "deleteSourceFiles": true,
+    "theme": "dark"
+  },
+  "window": {
+    "width": 850,
+    "height": 800,
+    "lastTab": 0
+  },
+  "statistics": {
+    "totalDownloads": 0,
+    "youtubeDownloads": 0,
+    "spotifyDownloads": 0,
+    "lastDownloadDate": ""
+  }
+}
