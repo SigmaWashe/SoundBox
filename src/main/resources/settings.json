@@ -3,19 +3,19 @@
     "outputDir": "",
     "playlistMode": false,
     "audioFormat": "M4A",
-    "quality": "0"
+    "quality": 320
   },
   "spotify": {
     "outputDir": "",
     "playlistMode": false,
     "audioFormat": "M4A",
-    "quailty": 0
+    "quality": 320
   },
   "general": {
     "embedThumbnails": true,
     "embedMetadata": true,
     "deleteSourceFiles": true,
-    "theme": "dark"
+    "theme": "light"
   },
   "window": {
     "width": 700,

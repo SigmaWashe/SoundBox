@@ -1,13 +1,13 @@
 package UI;
 
+import config.Settings;
+import theme.*;
+
 import com.formdev.flatlaf.*;
-import com.formdev.flatlaf.themes.*;
 import org.jdesktop.swingx.prompt.*;
 
 import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
 
 /**
@@ -16,16 +16,23 @@ import java.io.*;
  */
 public class MainMenu extends javax.swing.JFrame {
 
-    public static final Color LIGHT_BG = new Color(238, 218, 185);
-    public static final Color CARD_BG = new Color(250, 240, 220);
+    private static final Color LIGHT_BG = new Color(238, 218, 185);
+    private static final Color CARD_BG = new Color(250, 240, 220);
 
-    public static final Color TEXT_PRIMARY = new Color(75, 50, 30);
-    public static final Color TEXT_SECONDARY = new Color(140, 110, 85);
-    
-    public static final Color YOUTUBE = new Color(215, 45, 45);
-    public static final Color SPOTIFY = new Color(45, 160, 85);
-    
-    public static final Color HOVER = new Color(220, 195, 160);
+    private static final Color TEXT_PRIMARY = new Color(75, 50, 30);
+    private static final Color TEXT_SECONDARY = new Color(140, 110, 85);
+
+    private static final Color YOUTUBE = new Color(215, 45, 45);
+    private static final Color SPOTIFY = new Color(45, 160, 85);
+
+    private static final Color HOVER = new Color(220, 195, 160);
+
+    private Settings settings = new Settings();
+    private Dark darkTheme;
+    private Espresso espressoTheme;
+    private Latte latteTheme;
+    private Light lightTheme;
+
 
     /** 
      * Creates new form MainMenu
@@ -40,25 +47,157 @@ public class MainMenu extends javax.swing.JFrame {
         
         PromptSupport.setPrompt("Enter Spotify URL", spotify_urlFld);
         PromptSupport.setForeground(TEXT_SECONDARY, spotify_urlFld);
-        
-        transparentButton(yt_BrowseBtn);
-        transparentButton(spotify_BrowseBtn);
-        
-        styleButton(yt_DownloadBtn, true, YOUTUBE);
-        styleButton(spotify_DownloadBtn, true, SPOTIFY);
-        
-        styleButton(saveSettingsBtn, true, CARD_BG);        
-        styleButton(resetSettingsBtn, true, CARD_BG);        
-        styleButton(openSettingsFolderBtn, true, CARD_BG);
+
+        applyDefaultTheme();
         
     }
-    
-    public void transparentButton(JButton button) {
-        button.setOpaque(false);
-        button.setContentAreaFilled(false);
-        button.setFocusPainted(false);
-        button.setBorder(new LineBorder(HOVER, 1, true));
+
+    private void applyDefaultTheme(){
+        if(settings.getTheme().equalsIgnoreCase("light")){
+            getContentPane().setBackground(UIManager.getColor("Frame.background"));
+            lightThemeBtn.setSelected(true);
+            applyLightTheme();
+        } else if(settings.getTheme().equalsIgnoreCase("dark")){
+            getContentPane().setBackground(UIManager.getColor("Frame.background"));
+            darkThemeBtn.setSelected(true);
+            applyDarkTheme();
+        }else if(settings.getTheme().equalsIgnoreCase("latte")){
+            latteThemeBtn.setSelected(true);
+            applyLatteTheme();
+        }else if(settings.getTheme().equalsIgnoreCase("espresso")){
+            latteThemeBtn.setSelected(true);
+            applyEspressoTheme();
+        }
     }
+
+    private void applyLightTheme(){
+        try {
+            resetTheme();
+            lightTheme = new Light();
+            lightTheme.mainPanel(MainPanel);
+            lightTheme.headerPanel(HeaderPnl, TitlePanel, titleLbl, subtitleLbl);
+            lightTheme.tabbedPane(TabbedPane);
+            lightTheme.youtubeTab(YouTubePnl);
+            lightTheme.youtubeInputCard(YouTubeInputCard, yt_urlLbl, yt_urlFld, yt_OutputDirLbl, yt_DirPnl, yt_OutputDirFld,
+                    yt_BrowseBtn, yt_OptionsPnl, yt_PlaylistCheckBox, yt_AudioFormatComBox, yt_AudioQualityComBox);
+            lightTheme.youtubeControlCard(YouTubeControlCard, yt_DownloadBtn, yt_CancelDownloadBtn, yt_ProgressBar, yt_StatusLbl);
+            lightTheme.spotifyTab(SpotifyPnl);
+            lightTheme.spotifyInputCard(SpotifyInputCard, spotify_urlLbl, spotify_urlFld, spotify_OutputDirLbl, spotify_DirPnl,
+                    spotify_OutputDirFld, spotify_BrowseBtn, spotify_OptionsPnl, spotify_PlaylistCheckBox, spotify_AudioFormatComBox, spotify_AudioQualityComBox);
+            lightTheme.spotifyControlCard(SpotifyControlCard, spotify_DownloadBtn, spotify_CancelDownloadBtn, spotify_ProgressBar, spotify_StatusLbl);
+            lightTheme.settingsTab(SettingsPnl);
+            lightTheme.settingsScrollPane(SettingsScrollPane);
+            lightTheme.settingsMainPanel(SettingsMainPnl);
+            lightTheme.appearanceCard(appearanceCard, themeLbl, appearanceContent, themePnl, lightThemeBtn, darkThemeBtn, latteThemeBtn, espressoThemeBtn);
+            lightTheme.downloadSettCard(downloadSettingsCard, downloadLbl, downloadContent, embedThumbnails, embedMetadata, deleteSourceFiles);
+            lightTheme.statisticsCard(statisticsCard, statisticsLbl, statsContent, totalLbl, youtube_TotalLbl, spotify_TotalLbl);
+            lightTheme.actionsCard(actionsCard, actionsLbl, actionsContent, actionButtonsPnl, saveSettingsBtn, resetSettingsBtn, openSettingsFolderBtn);
+            lightTheme.logPanel(LogPnl, logLbl, jScrollPane1, logArea);
+
+            SwingUtilities.updateComponentTreeUI(this);
+            revalidate();
+            repaint();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void applyDarkTheme(){
+        try {
+            resetTheme();
+            darkTheme = new Dark();
+            darkTheme.mainPanel(MainPanel);
+            darkTheme.headerPanel(HeaderPnl, TitlePanel, titleLbl, subtitleLbl);
+            darkTheme.tabbedPane(TabbedPane);
+            darkTheme.youtubeTab(YouTubePnl);
+            darkTheme.youtubeInputCard(YouTubeInputCard, yt_urlLbl, yt_urlFld, yt_OutputDirLbl, yt_DirPnl, yt_OutputDirFld,
+                    yt_BrowseBtn, yt_OptionsPnl, yt_PlaylistCheckBox, yt_AudioFormatComBox, yt_AudioQualityComBox);
+            darkTheme.youtubeControlCard(YouTubeControlCard, yt_DownloadBtn, yt_CancelDownloadBtn, yt_ProgressBar, yt_StatusLbl);
+            darkTheme.spotifyTab(SpotifyPnl);
+            darkTheme.spotifyInputCard(SpotifyInputCard, spotify_urlLbl, spotify_urlFld, spotify_OutputDirLbl, spotify_DirPnl,
+                    spotify_OutputDirFld, spotify_BrowseBtn, spotify_OptionsPnl, spotify_PlaylistCheckBox, spotify_AudioFormatComBox, spotify_AudioQualityComBox);
+            darkTheme.spotifyControlCard(SpotifyControlCard, spotify_DownloadBtn, spotify_CancelDownloadBtn, spotify_ProgressBar, spotify_StatusLbl);
+            darkTheme.settingsTab(SettingsPnl);
+            darkTheme.settingsScrollPane(SettingsScrollPane);
+            darkTheme.settingsMainPanel(SettingsMainPnl);
+            darkTheme.appearanceCard(appearanceCard, themeLbl, appearanceContent, themePnl, lightThemeBtn, darkThemeBtn, latteThemeBtn, espressoThemeBtn);
+            darkTheme.downloadSettCard(downloadSettingsCard, downloadLbl, downloadContent, embedThumbnails, embedMetadata, deleteSourceFiles);
+            darkTheme.statisticsCard(statisticsCard, statisticsLbl, statsContent, totalLbl, youtube_TotalLbl, spotify_TotalLbl);
+            darkTheme.actionsCard(actionsCard, actionsLbl, actionsContent, actionButtonsPnl, saveSettingsBtn, resetSettingsBtn, openSettingsFolderBtn);
+            darkTheme.logPanel(LogPnl, logLbl, jScrollPane1, logArea);
+
+            SwingUtilities.updateComponentTreeUI(this);
+            revalidate();
+            repaint();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void applyLatteTheme(){
+        try {
+            resetTheme();
+            latteTheme = new Latte();
+            latteTheme.mainPanel(MainPanel);
+            latteTheme.headerPanel(HeaderPnl, TitlePanel, titleLbl, subtitleLbl);
+            latteTheme.tabbedPane(TabbedPane);
+            latteTheme.youtubeTab(YouTubePnl);
+            latteTheme.youtubeInputCard(YouTubeInputCard, yt_urlLbl, yt_urlFld, yt_OutputDirLbl, yt_DirPnl, yt_OutputDirFld,
+                    yt_BrowseBtn, yt_OptionsPnl, yt_PlaylistCheckBox, yt_AudioFormatComBox, yt_AudioQualityComBox);
+            latteTheme.youtubeControlCard(YouTubeControlCard, yt_DownloadBtn, yt_CancelDownloadBtn, yt_ProgressBar, yt_StatusLbl);
+            latteTheme.spotifyTab(SpotifyPnl);
+            latteTheme.spotifyInputCard(SpotifyInputCard, spotify_urlLbl, spotify_urlFld, spotify_OutputDirLbl, spotify_DirPnl,
+                    spotify_OutputDirFld, spotify_BrowseBtn, spotify_OptionsPnl, spotify_PlaylistCheckBox, spotify_AudioFormatComBox, spotify_AudioQualityComBox);
+            latteTheme.spotifyControlCard(SpotifyControlCard, spotify_DownloadBtn, spotify_CancelDownloadBtn, spotify_ProgressBar, spotify_StatusLbl);
+            latteTheme.settingsTab(SettingsPnl);
+            latteTheme.settingsScrollPane(SettingsScrollPane);
+            latteTheme.settingsMainPanel(SettingsMainPnl);
+            latteTheme.appearanceCard(appearanceCard, themeLbl, appearanceContent, themePnl, lightThemeBtn, darkThemeBtn, latteThemeBtn, espressoThemeBtn);
+            latteTheme.downloadSettCard(downloadSettingsCard, downloadLbl, downloadContent, embedThumbnails, embedMetadata, deleteSourceFiles);
+            latteTheme.statisticsCard(statisticsCard, statisticsLbl, statsContent, totalLbl, youtube_TotalLbl, spotify_TotalLbl);
+            latteTheme.actionsCard(actionsCard, actionsLbl, actionsContent, actionButtonsPnl, saveSettingsBtn, resetSettingsBtn, openSettingsFolderBtn);
+            latteTheme.logPanel(LogPnl, logLbl, jScrollPane1, logArea);
+
+            SwingUtilities.updateComponentTreeUI(this);
+            revalidate();
+            repaint();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void applyEspressoTheme(){
+        try {
+            resetTheme();
+            espressoTheme = new Espresso();
+            espressoTheme.mainPanel(MainPanel);
+            espressoTheme.headerPanel(HeaderPnl, TitlePanel, titleLbl, subtitleLbl);
+            espressoTheme.tabbedPane(TabbedPane);
+            espressoTheme.youtubeTab(YouTubePnl);
+            espressoTheme.youtubeInputCard(YouTubeInputCard, yt_urlLbl, yt_urlFld, yt_OutputDirLbl, yt_DirPnl, yt_OutputDirFld,
+                    yt_BrowseBtn, yt_OptionsPnl, yt_PlaylistCheckBox, yt_AudioFormatComBox, yt_AudioQualityComBox);
+            espressoTheme.youtubeControlCard(YouTubeControlCard, yt_DownloadBtn, yt_CancelDownloadBtn, yt_ProgressBar, yt_StatusLbl);
+            espressoTheme.spotifyTab(SpotifyPnl);
+            espressoTheme.spotifyInputCard(SpotifyInputCard, spotify_urlLbl, spotify_urlFld, spotify_OutputDirLbl, spotify_DirPnl,
+                    spotify_OutputDirFld, spotify_BrowseBtn, spotify_OptionsPnl, spotify_PlaylistCheckBox, spotify_AudioFormatComBox, spotify_AudioQualityComBox);
+            espressoTheme.spotifyControlCard(SpotifyControlCard, spotify_DownloadBtn, spotify_CancelDownloadBtn, spotify_ProgressBar, spotify_StatusLbl);
+            espressoTheme.settingsTab(SettingsPnl);
+            espressoTheme.settingsScrollPane(SettingsScrollPane);
+            espressoTheme.settingsMainPanel(SettingsMainPnl);
+            espressoTheme.appearanceCard(appearanceCard, themeLbl, appearanceContent, themePnl, lightThemeBtn, darkThemeBtn, latteThemeBtn, espressoThemeBtn);
+            espressoTheme.downloadSettCard(downloadSettingsCard, downloadLbl, downloadContent, embedThumbnails, embedMetadata, deleteSourceFiles);
+            espressoTheme.statisticsCard(statisticsCard, statisticsLbl, statsContent, totalLbl, youtube_TotalLbl, spotify_TotalLbl);
+            espressoTheme.actionsCard(actionsCard, actionsLbl, actionsContent, actionButtonsPnl, saveSettingsBtn, resetSettingsBtn, openSettingsFolderBtn);
+            espressoTheme.logPanel(LogPnl, logLbl, jScrollPane1, logArea);
+
+            SwingUtilities.updateComponentTreeUI(this);
+            revalidate();
+            repaint();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     
     private void browseOutputDirectory(JTextField field) {
         JFileChooser chooser = new JFileChooser();
@@ -69,40 +208,88 @@ public class MainMenu extends javax.swing.JFrame {
         }
     }
     
-    private JButton styleButton(JButton button, boolean isPrimary, Color primaryColor) {
-        button.setFont(new Font("JetBrains Mono", 1, 15));
-        button.setFocusPainted(false);
-        button.setBorderPainted(false);
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setBorder(BorderFactory.createEmptyBorder(12, 25, 12, 25));
-        button.setOpaque(true);
-        button.setContentAreaFilled(true);
+    private void resetTheme() {
+        // --- Global Component Settings ---
+        UIManager.put("Component.arrowType", null);
+        UIManager.put("Component.borderColor", null);
+        UIManager.put("Component.focusedBorderColor", null);
 
-        if (isPrimary) {
-            button.setBackground(primaryColor);
-            button.setForeground(TEXT_PRIMARY);
-        } else {
-            button.setBackground(HOVER);
-            button.setForeground(TEXT_PRIMARY);
-        }
+        // --- Labels & Panels ---
+        UIManager.put("Label.font", null);
+        UIManager.put("Label.foreground", null);
+        UIManager.put("Panel.background", null);
+        UIManager.put("RootPane.background", null);
 
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                if (button.isEnabled()) {
-                    button.setBackground(isPrimary ? primaryColor : HOVER.darker());
-                }
-            }
+        // --- Text Fields ---
+        UIManager.put("TextField.font", null);
+        UIManager.put("TextField.background", null);
+        UIManager.put("TextField.foreground", null);
+        UIManager.put("TextField.caretForeground", null);
+        UIManager.put("TextField.border", null);
 
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                if (button.isEnabled()) {
-                    button.setBackground(isPrimary ? primaryColor : HOVER);
-                }
-            }
-        });
+        // --- Buttons ---
+        UIManager.put("Button.font", null);
+        UIManager.put("Button.background", null);
+        UIManager.put("Button.foreground", null);
+        UIManager.put("ToggleButton.background", null);
+        UIManager.put("ToggleButton.foreground", null);
 
-        return button;
-    } 
+        // --- ComboBox Styling ---
+        UIManager.put("ComboBox.font", null);
+        UIManager.put("ComboBox.background", null);
+        UIManager.put("ComboBox.foreground", null);
+        UIManager.put("ComboBox.buttonBackground", null);
+        UIManager.put("ComboBox.selectionBackground", null);
+        UIManager.put("ComboBox.selectionForeground", null);
+        UIManager.put("ComboBox.popupBackground", null);
+        UIManager.put("ComboBox.popupForeground", null);
+        UIManager.put("ComboBox.border", null);
+        UIManager.put("ComboBox.padding", null);
 
+        // --- Lists & Tables ---
+        UIManager.put("List.font", null);
+        UIManager.put("List.background", null);
+        UIManager.put("List.foreground", null);
+        UIManager.put("List.selectionBackground", null);
+        UIManager.put("List.selectionForeground", null);
+
+        UIManager.put("Table.background", null);
+        UIManager.put("Table.foreground", null);
+        UIManager.put("Table.selectionBackground", null);
+        UIManager.put("Table.selectionForeground", null);
+        UIManager.put("TableHeader.background", null);
+        UIManager.put("TableHeader.foreground", null);
+
+        // --- Scrolling & Containers ---
+        UIManager.put("ScrollPane.background", null);
+        UIManager.put("Viewport.background", null);
+        UIManager.put("ScrollBar.track", null);
+        UIManager.put("ScrollBar.thumb", null);
+
+        UIManager.put("TabbedPane.background", null);
+        UIManager.put("TabbedPane.foreground", null);
+        UIManager.put("ToolBar.background", null);
+        UIManager.put("Tree.background", null);
+
+        // --- ToolTips ---
+        UIManager.put("ToolTip.font", null);
+        UIManager.put("ToolTip.background", null);
+        UIManager.put("ToolTip.foreground", null);
+        UIManager.put("ToolTip.border", null);
+
+        // --- File Chooser ---
+        UIManager.put("FileChooser.background", null);
+
+        // --- FlatLaf @ properties (if using Light theme's @ properties) ---
+        UIManager.put("@background", null);
+        UIManager.put("@foreground", null);
+        UIManager.put("@accentColor", null);
+        UIManager.put("@componentBackground", null);
+        UIManager.put("@componentForeground", null);
+        UIManager.put("@selectionBackground", null);
+        UIManager.put("@selectionForeground", null);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -113,11 +300,12 @@ public class MainMenu extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        themeGroup = new javax.swing.ButtonGroup();
         MainPanel = new javax.swing.JPanel();
         HeaderPnl = new javax.swing.JPanel();
         TitlePanel = new javax.swing.JPanel();
         titleLbl = new javax.swing.JLabel();
-        subTitle = new javax.swing.JLabel();
+        subtitleLbl = new javax.swing.JLabel();
         TabbedPane = new javax.swing.JTabbedPane();
         YouTubePnl = new javax.swing.JPanel();
         YouTubeInputCard = new javax.swing.JPanel();
@@ -176,14 +364,19 @@ public class MainMenu extends javax.swing.JFrame {
         themeLbl = new javax.swing.JLabel();
         appearanceContent = new javax.swing.JPanel();
         themePnl = new javax.swing.JPanel();
-        themeList = new javax.swing.JComboBox<>();
+        lightThemeBtn = new javax.swing.JRadioButton();
+        darkThemeBtn = new javax.swing.JRadioButton();
+        latteThemeBtn = new javax.swing.JRadioButton();
+        espressoThemeBtn = new javax.swing.JRadioButton();
         filler18 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
-        downloadSettinsCard = new javax.swing.JPanel();
+        downloadSettingsCard = new javax.swing.JPanel();
         downloadLbl = new javax.swing.JLabel();
         downloadContent = new javax.swing.JPanel();
-        embedTumbnails = new javax.swing.JCheckBox();
+        embedThumbnails = new javax.swing.JCheckBox();
         filler17 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
         embedMetadata = new javax.swing.JCheckBox();
+        filler23 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 15), new java.awt.Dimension(32767, 15));
+        deleteSourceFiles = new javax.swing.JCheckBox();
         filler21 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 20), new java.awt.Dimension(0, 20), new java.awt.Dimension(32767, 20));
         statisticsCard = new javax.swing.JPanel();
         statisticsLbl = new javax.swing.JLabel();
@@ -204,7 +397,7 @@ public class MainMenu extends javax.swing.JFrame {
         LogPnl = new javax.swing.JPanel();
         logLbl = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        logArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(CARD_BG);
@@ -228,10 +421,10 @@ public class MainMenu extends javax.swing.JFrame {
         titleLbl.setText("SOUND BOX");
         TitlePanel.add(titleLbl);
 
-        subTitle.setFont(new java.awt.Font("Inter", 0, 13)); // NOI18N
-        subTitle.setForeground(TEXT_SECONDARY);
-        subTitle.setText("Download high quality audio files from YouTube and Spotify");
-        TitlePanel.add(subTitle);
+        subtitleLbl.setFont(new java.awt.Font("JetBrains Mono", 0, 13)); // NOI18N
+        subtitleLbl.setForeground(TEXT_SECONDARY);
+        subtitleLbl.setText("Download high quality audio files from YouTube and Spotify");
+        TitlePanel.add(subtitleLbl);
 
         HeaderPnl.add(TitlePanel, java.awt.BorderLayout.WEST);
 
@@ -288,7 +481,7 @@ public class MainMenu extends javax.swing.JFrame {
         yt_OutputDirFld.setCaretColor(TEXT_PRIMARY);
         yt_DirPnl.add(yt_OutputDirFld, java.awt.BorderLayout.CENTER);
 
-        yt_BrowseBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lightThemeIcon/folder.png"))); // NOI18N
+        yt_BrowseBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/latteTheme/browse.png"))); // NOI18N
         yt_BrowseBtn.setToolTipText("Browse");
         yt_BrowseBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(12, 25, 12, 25));
         yt_BrowseBtn.setPreferredSize(new java.awt.Dimension(45, 45));
@@ -350,7 +543,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         yt_DownloadBtn.setBackground(YOUTUBE);
         yt_DownloadBtn.setFont(new java.awt.Font("JetBrains Mono", 1, 15)); // NOI18N
-        yt_DownloadBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lightThemeIcon/download.png"))); // NOI18N
+        yt_DownloadBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/latteTheme/download.png"))); // NOI18N
         yt_DownloadBtn.setText("DOWNLOAD");
         yt_DownloadBtn.setToolTipText("Download");
         yt_DownloadBtn.setAlignmentX(0.5F);
@@ -365,9 +558,8 @@ public class MainMenu extends javax.swing.JFrame {
         YouTubeControlCard.add(yt_DownloadBtn);
         YouTubeControlCard.add(filler5);
 
-        yt_CancelDownloadBtn.setBackground(TEXT_SECONDARY);
         yt_CancelDownloadBtn.setFont(new java.awt.Font("JetBrains Mono", 1, 15)); // NOI18N
-        yt_CancelDownloadBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lightThemeIcon/downloadCancel.png"))); // NOI18N
+        yt_CancelDownloadBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/latteTheme/downloadCancel.png"))); // NOI18N
         yt_CancelDownloadBtn.setText("CANCEL  ");
         yt_CancelDownloadBtn.setToolTipText("Cancel Download");
         yt_CancelDownloadBtn.setAlignmentX(0.5F);
@@ -444,7 +636,7 @@ public class MainMenu extends javax.swing.JFrame {
         spotify_OutputDirFld.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(HOVER, 1, true), javax.swing.BorderFactory.createEmptyBorder(12, 15, 12, 15)));
         spotify_DirPnl.add(spotify_OutputDirFld, java.awt.BorderLayout.CENTER);
 
-        spotify_BrowseBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lightThemeIcon/folder.png"))); // NOI18N
+        spotify_BrowseBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/latteTheme/browse.png"))); // NOI18N
         spotify_BrowseBtn.setToolTipText("Browse");
         spotify_BrowseBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(12, 25, 12, 25));
         spotify_BrowseBtn.setPreferredSize(new java.awt.Dimension(45, 45));
@@ -505,7 +697,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         spotify_DownloadBtn.setBackground(SPOTIFY);
         spotify_DownloadBtn.setFont(new java.awt.Font("JetBrains Mono", 1, 15)); // NOI18N
-        spotify_DownloadBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lightThemeIcon/download.png"))); // NOI18N
+        spotify_DownloadBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/latteTheme/download.png"))); // NOI18N
         spotify_DownloadBtn.setText("DOWNLOAD");
         spotify_DownloadBtn.setToolTipText("Download");
         spotify_DownloadBtn.setAlignmentX(0.5F);
@@ -520,9 +712,8 @@ public class MainMenu extends javax.swing.JFrame {
         SpotifyControlCard.add(spotify_DownloadBtn);
         SpotifyControlCard.add(filler14);
 
-        spotify_CancelDownloadBtn.setBackground(TEXT_SECONDARY);
         spotify_CancelDownloadBtn.setFont(new java.awt.Font("JetBrains Mono", 1, 15)); // NOI18N
-        spotify_CancelDownloadBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lightThemeIcon/downloadCancel.png"))); // NOI18N
+        spotify_CancelDownloadBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/latteTheme/downloadCancel.png"))); // NOI18N
         spotify_CancelDownloadBtn.setText("CANCEL  ");
         spotify_CancelDownloadBtn.setToolTipText("Cancel Download");
         spotify_CancelDownloadBtn.setAlignmentX(0.5F);
@@ -583,13 +774,52 @@ public class MainMenu extends javax.swing.JFrame {
 
         themePnl.setBackground(CARD_BG);
         themePnl.setAlignmentX(0.0F);
-        themePnl.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
+        themePnl.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 15, 0));
 
-        themeList.setBackground(CARD_BG);
-        themeList.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        themeList.setForeground(TEXT_PRIMARY);
-        themeList.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Light", "Dark", "Capercinno", "Coffe" }));
-        themePnl.add(themeList);
+        themeGroup.add(lightThemeBtn);
+        lightThemeBtn.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        lightThemeBtn.setForeground(TEXT_SECONDARY);
+        lightThemeBtn.setText("Light");
+        lightThemeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lightThemeBtnActionPerformed(evt);
+            }
+        });
+        themePnl.add(lightThemeBtn);
+
+        themeGroup.add(darkThemeBtn);
+        darkThemeBtn.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        darkThemeBtn.setForeground(TEXT_SECONDARY);
+        darkThemeBtn.setText("Dark");
+        darkThemeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                darkThemeBtnActionPerformed(evt);
+            }
+        });
+        themePnl.add(darkThemeBtn);
+
+        themeGroup.add(latteThemeBtn);
+        latteThemeBtn.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        latteThemeBtn.setForeground(TEXT_SECONDARY);
+        latteThemeBtn.setSelected(true);
+        latteThemeBtn.setText("Latte");
+        latteThemeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                latteThemeBtnActionPerformed(evt);
+            }
+        });
+        themePnl.add(latteThemeBtn);
+
+        themeGroup.add(espressoThemeBtn);
+        espressoThemeBtn.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        espressoThemeBtn.setForeground(TEXT_SECONDARY);
+        espressoThemeBtn.setText("Espresso");
+        espressoThemeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                espressoThemeBtnActionPerformed(evt);
+            }
+        });
+        themePnl.add(espressoThemeBtn);
 
         appearanceContent.add(themePnl);
 
@@ -598,24 +828,24 @@ public class MainMenu extends javax.swing.JFrame {
         SettingsMainPnl.add(appearanceCard);
         SettingsMainPnl.add(filler18);
 
-        downloadSettinsCard.setBackground(CARD_BG);
-        downloadSettinsCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(HOVER, 1, true), javax.swing.BorderFactory.createEmptyBorder(20, 25, 20, 25)));
-        downloadSettinsCard.setLayout(new java.awt.BorderLayout());
+        downloadSettingsCard.setBackground(CARD_BG);
+        downloadSettingsCard.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(HOVER, 1, true), javax.swing.BorderFactory.createEmptyBorder(20, 25, 20, 25)));
+        downloadSettingsCard.setLayout(new java.awt.BorderLayout());
 
         downloadLbl.setFont(new java.awt.Font("JetBrains Mono", 1, 16)); // NOI18N
         downloadLbl.setForeground(TEXT_PRIMARY);
         downloadLbl.setText("DOWNLOAD SETTINGS");
         downloadLbl.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 15, 0));
-        downloadSettinsCard.add(downloadLbl, java.awt.BorderLayout.NORTH);
+        downloadSettingsCard.add(downloadLbl, java.awt.BorderLayout.NORTH);
 
         downloadContent.setBackground(CARD_BG);
         downloadContent.setMaximumSize(new Dimension(Integer.MAX_VALUE, Integer.MAX_VALUE));
         downloadContent.setLayout(new javax.swing.BoxLayout(downloadContent, javax.swing.BoxLayout.Y_AXIS));
 
-        embedTumbnails.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
-        embedTumbnails.setForeground(TEXT_SECONDARY);
-        embedTumbnails.setText("Embed thumbnails in audio files");
-        downloadContent.add(embedTumbnails);
+        embedThumbnails.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        embedThumbnails.setForeground(TEXT_SECONDARY);
+        embedThumbnails.setText("Embed thumbnails in audio files");
+        downloadContent.add(embedThumbnails);
         downloadContent.add(filler17);
 
         embedMetadata.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
@@ -623,10 +853,16 @@ public class MainMenu extends javax.swing.JFrame {
         embedMetadata.setText("Embed metadata (title, artist, album)");
         embedMetadata.setFocusPainted(false);
         downloadContent.add(embedMetadata);
+        downloadContent.add(filler23);
 
-        downloadSettinsCard.add(downloadContent, java.awt.BorderLayout.CENTER);
+        deleteSourceFiles.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        deleteSourceFiles.setForeground(TEXT_SECONDARY);
+        deleteSourceFiles.setText("Delete Source Files");
+        downloadContent.add(deleteSourceFiles);
 
-        SettingsMainPnl.add(downloadSettinsCard);
+        downloadSettingsCard.add(downloadContent, java.awt.BorderLayout.CENTER);
+
+        SettingsMainPnl.add(downloadSettingsCard);
         SettingsMainPnl.add(filler21);
 
         statisticsCard.setBackground(CARD_BG);
@@ -727,15 +963,15 @@ public class MainMenu extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(new javax.swing.border.LineBorder(HOVER, 1, true));
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(LIGHT_BG);
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
-        jTextArea1.setForeground(TEXT_PRIMARY);
-        jTextArea1.setRows(5);
-        jTextArea1.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        jTextArea1.setCaretColor(TEXT_PRIMARY);
-        jScrollPane1.setViewportView(jTextArea1);
+        logArea.setEditable(false);
+        logArea.setBackground(LIGHT_BG);
+        logArea.setColumns(20);
+        logArea.setFont(new java.awt.Font("JetBrains Mono", 0, 12)); // NOI18N
+        logArea.setForeground(TEXT_PRIMARY);
+        logArea.setRows(5);
+        logArea.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        logArea.setCaretColor(TEXT_PRIMARY);
+        jScrollPane1.setViewportView(logArea);
 
         LogPnl.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -756,29 +992,36 @@ public class MainMenu extends javax.swing.JFrame {
         browseOutputDirectory(spotify_urlFld);
     }//GEN-LAST:event_spotify_BrowseBtnActionPerformed
 
+    private void lightThemeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lightThemeBtnActionPerformed
+        // TODO add your handling code here:
+        resetTheme();
+        applyLightTheme();
+    }//GEN-LAST:event_lightThemeBtnActionPerformed
+
+    private void darkThemeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darkThemeBtnActionPerformed
+        // TODO add your handling code here:
+        resetTheme();
+        applyDarkTheme();
+    }//GEN-LAST:event_darkThemeBtnActionPerformed
+
+    private void latteThemeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_latteThemeBtnActionPerformed
+        // TODO add your handling code here:
+        resetTheme();
+        applyLatteTheme();
+    }//GEN-LAST:event_latteThemeBtnActionPerformed
+
+    private void espressoThemeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_espressoThemeBtnActionPerformed
+        // TODO add your handling code here:
+        resetTheme();
+        applyEspressoTheme();
+    }//GEN-LAST:event_espressoThemeBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {   
         
         FlatLightLaf.setup();
-        
-            /*public static final Color LIGHT_BG = new Color(238, 218, 185);
-            public static final Color CARD_BG = new Color(250, 240, 220);
-
-            public static final Color TEXT_PRIMARY = new Color(75, 50, 30);*/
-        
-        UIManager.put("ToolTip.background",  new Color(250, 240, 220));
-        UIManager.put("ToolTip.foreground", new Color(75, 50, 30));
-        UIManager.put("ToolTip.border", BorderFactory.createLineBorder(new Color(220, 195, 160)));
-        UIManager.put("ToolTip.font", new Font("JetBrains Mono", Font.PLAIN, 14));
-        
-        UIManager.put("ComboBox.buttonBackground",  new Color(250, 240, 220));
-        UIManager.put("ComboBox.selectionBackground", new Color(220, 195, 160));
-        UIManager.put("ComboBox.popupBackground", new Color(250, 240, 220));
-        UIManager.put("ComboBox.popupForground",  new Color(75, 50, 30));
-        //FlatLaf.install(new FlatMacLightLaf());
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -808,11 +1051,14 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel actionsLbl;
     private javax.swing.JPanel appearanceCard;
     private javax.swing.JPanel appearanceContent;
+    private javax.swing.JRadioButton darkThemeBtn;
+    private javax.swing.JCheckBox deleteSourceFiles;
     private javax.swing.JPanel downloadContent;
     private javax.swing.JLabel downloadLbl;
-    private javax.swing.JPanel downloadSettinsCard;
+    private javax.swing.JPanel downloadSettingsCard;
     private javax.swing.JCheckBox embedMetadata;
-    private javax.swing.JCheckBox embedTumbnails;
+    private javax.swing.JCheckBox embedThumbnails;
+    private javax.swing.JRadioButton espressoThemeBtn;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
@@ -828,6 +1074,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler20;
     private javax.swing.Box.Filler filler21;
     private javax.swing.Box.Filler filler22;
+    private javax.swing.Box.Filler filler23;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler5;
@@ -836,7 +1083,9 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JRadioButton latteThemeBtn;
+    private javax.swing.JRadioButton lightThemeBtn;
+    private javax.swing.JTextArea logArea;
     private javax.swing.JLabel logLbl;
     private javax.swing.JButton openSettingsFolderBtn;
     private javax.swing.JButton resetSettingsBtn;
@@ -859,9 +1108,9 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel statisticsCard;
     private javax.swing.JLabel statisticsLbl;
     private javax.swing.JPanel statsContent;
-    private javax.swing.JLabel subTitle;
+    private javax.swing.JLabel subtitleLbl;
+    private javax.swing.ButtonGroup themeGroup;
     private javax.swing.JLabel themeLbl;
-    private javax.swing.JComboBox<String> themeList;
     private javax.swing.JPanel themePnl;
     private javax.swing.JLabel titleLbl;
     private javax.swing.JLabel totalLbl;

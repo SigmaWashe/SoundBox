@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="themeGroup">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
@@ -98,10 +102,10 @@
                     <Property name="text" type="java.lang.String" value="SOUND BOX"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="subTitle">
+                <Component class="javax.swing.JLabel" name="subtitleLbl">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Inter" size="13" style="0"/>
+                      <Font name="JetBrains Mono" size="13" style="0"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="TEXT_SECONDARY" type="code"/>
@@ -358,7 +362,7 @@
                         <Component class="javax.swing.JButton" name="yt_BrowseBtn">
                           <Properties>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/lightThemeIcon/folder.png"/>
+                              <Image iconType="3" name="/latteTheme/browse.png"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" value="Browse"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -562,7 +566,7 @@
                           <Font name="JetBrains Mono" size="15" style="1"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/lightThemeIcon/download.png"/>
+                          <Image iconType="3" name="/latteTheme/download.png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="DOWNLOAD"/>
                         <Property name="toolTipText" type="java.lang.String" value="Download"/>
@@ -605,14 +609,11 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="yt_CancelDownloadBtn">
                       <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="TEXT_SECONDARY" type="code"/>
-                        </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="JetBrains Mono" size="15" style="1"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/lightThemeIcon/downloadCancel.png"/>
+                          <Image iconType="3" name="/latteTheme/downloadCancel.png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="CANCEL  "/>
                         <Property name="toolTipText" type="java.lang.String" value="Cancel Download"/>
@@ -916,7 +917,7 @@
                         <Component class="javax.swing.JButton" name="spotify_BrowseBtn">
                           <Properties>
                             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                              <Image iconType="3" name="/lightThemeIcon/folder.png"/>
+                              <Image iconType="3" name="/latteTheme/browse.png"/>
                             </Property>
                             <Property name="toolTipText" type="java.lang.String" value="Browse"/>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -1117,7 +1118,7 @@
                           <Font name="JetBrains Mono" size="15" style="1"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/lightThemeIcon/download.png"/>
+                          <Image iconType="3" name="/latteTheme/download.png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="DOWNLOAD"/>
                         <Property name="toolTipText" type="java.lang.String" value="Download"/>
@@ -1160,14 +1161,11 @@
                     </Component>
                     <Component class="javax.swing.JButton" name="spotify_CancelDownloadBtn">
                       <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="TEXT_SECONDARY" type="code"/>
-                        </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="JetBrains Mono" size="15" style="1"/>
                         </Property>
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/lightThemeIcon/downloadCancel.png"/>
+                          <Image iconType="3" name="/latteTheme/downloadCancel.png"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="CANCEL  "/>
                         <Property name="toolTipText" type="java.lang.String" value="Cancel Download"/>
@@ -1386,33 +1384,78 @@
 
                                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout">
                                     <Property name="alignment" type="int" value="0"/>
-                                    <Property name="horizontalGap" type="int" value="0"/>
+                                    <Property name="horizontalGap" type="int" value="15"/>
                                     <Property name="verticalGap" type="int" value="0"/>
                                   </Layout>
                                   <SubComponents>
-                                    <Component class="javax.swing.JComboBox" name="themeList">
+                                    <Component class="javax.swing.JRadioButton" name="lightThemeBtn">
                                       <Properties>
-                                        <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                          <Connection code="CARD_BG" type="code"/>
+                                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                                          <ComponentRef name="themeGroup"/>
                                         </Property>
                                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                           <Font name="JetBrains Mono" size="14" style="0"/>
                                         </Property>
                                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                          <Connection code="TEXT_PRIMARY" type="code"/>
+                                          <Connection code="TEXT_SECONDARY" type="code"/>
                                         </Property>
-                                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                                          <StringArray count="4">
-                                            <StringItem index="0" value="Light"/>
-                                            <StringItem index="1" value="Dark"/>
-                                            <StringItem index="2" value="Capercinno"/>
-                                            <StringItem index="3" value="Coffe"/>
-                                          </StringArray>
-                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Light"/>
                                       </Properties>
-                                      <AuxValues>
-                                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                                      </AuxValues>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lightThemeBtnActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JRadioButton" name="darkThemeBtn">
+                                      <Properties>
+                                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                                          <ComponentRef name="themeGroup"/>
+                                        </Property>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="JetBrains Mono" size="14" style="0"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                          <Connection code="TEXT_SECONDARY" type="code"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Dark"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="darkThemeBtnActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JRadioButton" name="latteThemeBtn">
+                                      <Properties>
+                                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                                          <ComponentRef name="themeGroup"/>
+                                        </Property>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="JetBrains Mono" size="14" style="0"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                          <Connection code="TEXT_SECONDARY" type="code"/>
+                                        </Property>
+                                        <Property name="selected" type="boolean" value="true"/>
+                                        <Property name="text" type="java.lang.String" value="Latte"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="latteThemeBtnActionPerformed"/>
+                                      </Events>
+                                    </Component>
+                                    <Component class="javax.swing.JRadioButton" name="espressoThemeBtn">
+                                      <Properties>
+                                        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                                          <ComponentRef name="themeGroup"/>
+                                        </Property>
+                                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                          <Font name="JetBrains Mono" size="14" style="0"/>
+                                        </Property>
+                                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                          <Connection code="TEXT_SECONDARY" type="code"/>
+                                        </Property>
+                                        <Property name="text" type="java.lang.String" value="Espresso"/>
+                                      </Properties>
+                                      <Events>
+                                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="espressoThemeBtnActionPerformed"/>
+                                      </Events>
                                     </Component>
                                   </SubComponents>
                                 </Container>
@@ -1436,7 +1479,7 @@
                             <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.VerticalStrut"/>
                           </AuxValues>
                         </Component>
-                        <Container class="javax.swing.JPanel" name="downloadSettinsCard">
+                        <Container class="javax.swing.JPanel" name="downloadSettingsCard">
                           <Properties>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                               <Connection code="CARD_BG" type="code"/>
@@ -1499,7 +1542,7 @@
                                 <Property name="axis" type="int" value="1"/>
                               </Layout>
                               <SubComponents>
-                                <Component class="javax.swing.JCheckBox" name="embedTumbnails">
+                                <Component class="javax.swing.JCheckBox" name="embedThumbnails">
                                   <Properties>
                                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                       <Font name="JetBrains Mono" size="14" style="0"/>
@@ -1536,6 +1579,33 @@
                                     </Property>
                                     <Property name="text" type="java.lang.String" value="Embed metadata (title, artist, album)"/>
                                     <Property name="focusPainted" type="boolean" value="false"/>
+                                  </Properties>
+                                </Component>
+                                <Component class="javax.swing.Box$Filler" name="filler23">
+                                  <Properties>
+                                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[32767, 15]"/>
+                                    </Property>
+                                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[0, 15]"/>
+                                    </Property>
+                                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                                      <Dimension value="[0, 15]"/>
+                                    </Property>
+                                  </Properties>
+                                  <AuxValues>
+                                    <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.VerticalStrut"/>
+                                  </AuxValues>
+                                </Component>
+                                <Component class="javax.swing.JCheckBox" name="deleteSourceFiles">
+                                  <Properties>
+                                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                      <Font name="JetBrains Mono" size="14" style="0"/>
+                                    </Property>
+                                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                      <Connection code="TEXT_SECONDARY" type="code"/>
+                                    </Property>
+                                    <Property name="text" type="java.lang.String" value="Delete Source Files"/>
                                   </Properties>
                                 </Component>
                               </SubComponents>
@@ -1902,7 +1972,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="jTextArea1">
+                <Component class="javax.swing.JTextArea" name="logArea">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
