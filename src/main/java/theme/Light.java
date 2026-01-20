@@ -1,6 +1,6 @@
 package theme;
 
-import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.*;
 import com.formdev.flatlaf.themes.*;
 import org.jdesktop.swingx.prompt.*;
 
@@ -27,11 +27,8 @@ public class Light {
 
     public Light(){
         try{
-            UIManager.put("@background", null);
-            UIManager.put("@foreground", null);
-            UIManager.put("@accentColor", null);
-            FlatLaf.updateUI();
             UIManager.setLookAndFeel(new FlatMacLightLaf());
+            FlatLaf.updateUI();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,24 +36,48 @@ public class Light {
         Font mainFont = new Font("JetBrains Mono", Font.PLAIN, 12);
         Font boldFont = new Font("JetBrains Mono", Font.BOLD, 12);
 
-        UIManager.put("@background", LIGHT_BG);
-        UIManager.put("@foreground", TEXT_PRIMARY);
-
-        UIManager.put("@componentBackground", CARD_BG);
-        UIManager.put("@componentForeground", TEXT_PRIMARY);
-
-        UIManager.put("@selectionBackground", HOVER);
-        UIManager.put("@selectionForeground", TEXT_PRIMARY);
-
-        UIManager.put("@accentColor", HOVER);
-
-
         UIManager.put("Label.font", mainFont);
         UIManager.put("TextField.font", mainFont);
         UIManager.put("Button.font", boldFont);
         UIManager.put("ComboBox.font", mainFont);
         UIManager.put("List.font", mainFont);
+        UIManager.put("List.background", CARD_BG);
+        UIManager.put("List.foreground", TEXT_PRIMARY);
+        UIManager.put("List.selectionBackground", HOVER);
+        UIManager.put("List.selectionForeground", TEXT_PRIMARY);
+
+        UIManager.put("Table.background", CARD_BG);
+        UIManager.put("Table.foreground", TEXT_PRIMARY);
+        UIManager.put("Table.selectionBackground", HOVER);
+        UIManager.put("Table.selectionForeground", TEXT_PRIMARY);
+        UIManager.put("TableHeader.background", LIGHT_BG);
+        UIManager.put("TableHeader.foreground", TEXT_PRIMARY);
+
+        // --- Scrolling & Containers ---
+        UIManager.put("ScrollPane.background", CARD_BG);
+        UIManager.put("Viewport.background", CARD_BG);
+        UIManager.put("ScrollBar.track", CARD_BG);
+        UIManager.put("ScrollBar.thumb", HOVER);
+
+        UIManager.put("TabbedPane.background", CARD_BG);
+        UIManager.put("TabbedPane.foreground", TEXT_PRIMARY);
+        UIManager.put("ToolBar.background", LIGHT_BG);
+        UIManager.put("Tree.background", CARD_BG);
+
+        // --- JOptionPane ---
+        UIManager.put("OptionPane.font", mainFont);
+        UIManager.put("OptionPane.background", CARD_BG);
+        UIManager.put("Panel.background", CARD_BG);
+        UIManager.put("OptionPane.messageFont", mainFont);
+        UIManager.put("OptionPane.messageForeground", TEXT_PRIMARY);
+        UIManager.put("OptionPane.buttonFont", boldFont);
+        UIManager.put("Button.background", LIGHT_BG);
+        UIManager.put("Button.foreground", TEXT_PRIMARY);
+        UIManager.put("Button.select", HOVER);
+
+        // --- ToolTips ---
         UIManager.put("ToolTip.font", mainFont);
+
     }
 
     ///=================================================== MAIN PANEL ==================================================
@@ -86,7 +107,7 @@ public class Light {
     }
     public void youtubeInputCard(JPanel youtubeInputCard, JLabel yt_urlLbl, JTextField yt_urlFld, JLabel yt_OutputDirLbl,
                                  JPanel yt_DirPnl, JTextField yt_OutputDirFld, JButton yt_BrowseBtn, JPanel yt_OptionsPnl,
-                                 JCheckBox yt_PlaylistMode, JComboBox yt_Format, JComboBox yt_Quality){
+                                 JCheckBox yt_PlaylistMode, JComboBox yt_Format){
 
         youtubeInputCard.setBackground(CARD_BG);
         youtubeInputCard.setForeground(CARD_BG);
@@ -104,7 +125,6 @@ public class Light {
         styleCheckBox(yt_PlaylistMode);
         yt_PlaylistMode.setBackground(CARD_BG);
         styleComboBox(yt_Format);
-        styleComboBox(yt_Quality);
 
     }
     public void youtubeControlCard(JPanel youtubeControlCard, JButton yt_DownloadBtn, JButton yt_CancelBtn,
@@ -124,7 +144,7 @@ public class Light {
     }
     public void spotifyInputCard(JPanel spotifyInputCard, JLabel spotify_urlLbl, JTextField spotify_urlFld, JLabel spotify_OutputDirLbl,
                                  JPanel spotify_DirPnl, JTextField spotify_OutputDirFld, JButton spotify_BrowseBtn, JPanel spotify_OptionsPnl,
-                                 JCheckBox spotify_PlaylistMode, JComboBox spotify_Format, JComboBox spotify_Quality){
+                                 JCheckBox spotify_PlaylistMode, JComboBox spotify_Format){
 
         spotifyInputCard.setBackground(CARD_BG);
         spotifyInputCard.setForeground(CARD_BG);
@@ -141,7 +161,6 @@ public class Light {
         spotify_OptionsPnl.setForeground(CARD_BG);
         styleCheckBox(spotify_PlaylistMode);
         styleComboBox(spotify_Format);
-        styleComboBox(spotify_Quality);
     }
     public void spotifyControlCard(JPanel spotifyControlCard, JButton spotify_DownloadBtn, JButton spotify_CancelBtn,
                                    JProgressBar spotify_ProgressBar, JLabel spotify_statusLbl){
@@ -166,7 +185,7 @@ public class Light {
         settingsMainPanel.setBackground(CARD_BG);
     }
     public void appearanceCard(JPanel appearanceCard, JLabel themeLbl, JPanel appearanceContent, JPanel themePanel,
-                               JRadioButton lightTheme, JRadioButton darkTheme, JRadioButton latteTheme, JRadioButton espressoTheme){
+                               JRadioButton lightTheme, JRadioButton darkTheme){
         appearanceCard.setBackground(CARD_BG);
         appearanceCard.setBorder(BorderFactory.createCompoundBorder(new LineBorder(HOVER, 1, true),
                                  BorderFactory.createEmptyBorder(20, 25, 20, 25)));
@@ -175,8 +194,6 @@ public class Light {
         themePanel.setBackground(CARD_BG);
         styleRadioButton(lightTheme);
         styleRadioButton(darkTheme);
-        styleRadioButton(latteTheme);
-        styleRadioButton(espressoTheme);
     }
     public void downloadSettCard(JPanel downloadSettCard, JLabel downloadLbl, JPanel downloadContent,
                                  JCheckBox embedThumbnails, JCheckBox embedMetadata, JCheckBox deleteSourceFiles){
@@ -214,7 +231,7 @@ public class Light {
     }
 
     /// ================================================== LOG PANEL ==================================================
-    public void logPanel(JPanel logPanel, JLabel logLbl, JScrollPane scrollPane, JTextArea logArea){
+    public void logPanel(JPanel logPanel, JLabel logLbl, JScrollPane scrollPane, JTextPane logArea){
         logPanel.setBackground(CARD_BG);
         logPanel.setBorder(BorderFactory.createCompoundBorder(new LineBorder(HOVER, 1, true),
                 BorderFactory.createEmptyBorder(20, 30, 20, 30)));
@@ -275,7 +292,7 @@ public class Light {
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 if (button.isEnabled()) {
-                    button.setBackground(LIGHT_BG);
+                    button.setBackground(primaryColor.darker());
                 }
             }
 

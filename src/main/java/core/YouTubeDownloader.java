@@ -17,15 +17,15 @@ public class YouTubeDownloader {
      * 2. Best audio converted to M4A if direct not available
      */
     public static void downloadPlaylist(String url, String outputDir, Consumer<String> logger,
-                                        Consumer<Integer> progressUpdater, boolean forcePlaylist) throws Exception {
+                                        Consumer<Integer> progressUpdater, boolean forcePlaylist, String audioFormat) throws Exception {
 
         ProcessBuilder pb = new ProcessBuilder();
         pb.command(
                 "yt-dlp",
-                "-f", "bestaudio[ext=" + settings.getYouTubeAudioFormat() + "]/bestaudio/best",
+                "-f", "bestaudio[ext=" + audioFormat.toLowerCase() + "]/bestaudio/best",
                 "-x",
-                "--audio-format", settings.getYouTubeAudioFormat(),
-                "--audio-quality", String.valueOf(settings.getYouTubeQuality()),
+                "--audio-format", audioFormat.toLowerCase(),
+                "--audio-quality", "0",
                 "--embed-thumbnail",
                 "--write-thumbnail",
                 "--convert-thumbnails", "jpg",
@@ -80,8 +80,7 @@ public class YouTubeDownloader {
     public static String getPlaylistTitle(String url) {
         try {
             // Use --flat-playlist to avoid processing all video IDs, and --print to get the title
-            ProcessBuilder pb = new ProcessBuilder("yt-dlp", "--flat-playlist", "--skip-download",
-                    "--print", "%(playlist_title)s", url);
+            ProcessBuilder pb = new ProcessBuilder("yt-dlp", "--flat-playlist", "--skip-download", "--print", "%(playlist_title)s", url);
 
             pb.redirectErrorStream(true);
             Process process = pb.start();
@@ -127,10 +126,34 @@ public class YouTubeDownloader {
     }
 
     public static boolean isPlaylistUrl(String url) {
-        return url != null && (
-                url.contains("playlist?list=") ||
-                        url.contains("&list=") ||
-                        url.contains("/playlists/")
-        );
+        return url != null && (url.contains("playlist?list=") || url.contains("&list=") || url.contains("/playlists/"));
     }
+
+    public static void cleanupThumbnails(String outputDir, Consumer<String> logger) {
+        try {
+            File directory = new File(outputDir);
+            if (!directory.exists() || !directory.isDirectory()) return;
+
+            File[] thumbnails = directory.listFiles((dir, name) -> {
+                String lower = name.toLowerCase();
+                return lower.endsWith(".jpg") || lower.endsWith(".jpeg") ||
+                        lower.endsWith(".png") || lower.endsWith(".webp");});
+
+            if (thumbnails == null || thumbnails.length == 0) return;
+
+            int deleted = 0;
+            for (File thumb : thumbnails) {
+                if (thumb.delete()) deleted++;
+            }
+
+            if (logger != null && deleted > 0) {
+                logger.accept("✅ Cleaned up " + deleted + " thumbnail file(s)");
+            }
+        } catch (Exception e) {
+            if (logger != null) {
+                logger.accept("⚠️ Thumbnail cleanup error: " + e.getMessage());
+            }
+        }
+    }
+
 }

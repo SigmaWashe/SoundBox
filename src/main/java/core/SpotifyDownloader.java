@@ -15,16 +15,15 @@ public class SpotifyDownloader {
      * Downloads Spotify track(s) or playlist using spotdl.
      * spotdl automatically handles M4A format and metadata embedding.
      */
-    public static void downloadSpotify(String url, String outputDir, Consumer<String> logger,
-                                       Consumer<Integer> progressUpdater, boolean isPlaylist) throws Exception {
+    public static void downloadPlaylist(String url, String outputDir, Consumer<String> logger,
+                                        Consumer<Integer> progressUpdater, boolean isPlaylist, String audioFormat) throws Exception {
 
         ProcessBuilder pb = new ProcessBuilder();
         pb.command(
-                "spotdl",
-                url,
+                "spotdl", url,
                 "--output", outputDir,
-                "--format", settings.getSpotifyAudioFormat(),
-                "--bitrate", String.valueOf(settings.getSpotifyQuality()),
+                "--format", audioFormat.toLowerCase(),
+                "--bitrate", "320k",
                 "--lyrics",
                 "--threads", String.valueOf(Math.max(1, Runtime.getRuntime().availableProcessors() - 1))
         );
@@ -129,10 +128,35 @@ public class SpotifyDownloader {
 
     public static boolean isSpotifyPlaylistUrl(String url) {
         return url != null && (
-                url.contains("open.spotify.com/playlist/") ||
-                        url.contains("open.spotify.com/album/") ||
-                        url.contains("spotify:playlist:") ||
-                        url.contains("spotify:album:")
-        );
+                url.contains("open.spotify.com/playlist/") || url.contains("open.spotify.com/album/") ||
+                         url.contains("spotify:playlist:") || url.contains("spotify:album:"));
     }
+
+    public static void cleanupThumbnails(String outputDir, Consumer<String> logger) {
+        try {
+            File directory = new File(outputDir);
+            if (!directory.exists() || !directory.isDirectory()) return;
+
+            File[] thumbnails = directory.listFiles((dir, name) -> {
+                String lower = name.toLowerCase();
+                return lower.endsWith(".jpg") || lower.endsWith(".jpeg") ||
+                        lower.endsWith(".png") || lower.endsWith(".webp");});
+
+            if (thumbnails == null || thumbnails.length == 0) return;
+
+            int deleted = 0;
+            for (File thumb : thumbnails) {
+                if (thumb.delete()) deleted++;
+            }
+
+            if (logger != null && deleted > 0) {
+                logger.accept("✅ Cleaned up " + deleted + " thumbnail file(s)");
+            }
+        } catch (Exception e) {
+            if (logger != null) {
+                logger.accept("⚠️ Thumbnail cleanup error: " + e.getMessage());
+            }
+        }
+    }
+
 }

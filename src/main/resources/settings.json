@@ -2,20 +2,15 @@
   "youtube": {
     "outputDir": "",
     "playlistMode": false,
-    "audioFormat": "M4A",
-    "quality": 320
+    "audioFormat": "mp3"
   },
   "spotify": {
     "outputDir": "",
     "playlistMode": false,
-    "audioFormat": "M4A",
-    "quality": 320
+    "audioFormat": "mp3"
   },
-  "general": {
-    "embedThumbnails": true,
-    "embedMetadata": true,
-    "deleteSourceFiles": true,
-    "theme": "light"
+  "theme": {
+    "theme": "dark"
   },
   "window": {
     "width": 700,

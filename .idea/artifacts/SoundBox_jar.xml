@@ -1,0 +1,29 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SoundBox:jar">
+    <output-path>$PROJECT_DIR$</output-path>
+    <root id="archive" name="SoundBox.jar">
+      <element id="module-output" name="SoundBox" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ws/schild/jave-core/3.5.0/jave-core-3.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/jthink/jaudiotagger/3.0.1/jaudiotagger-3.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ws/schild/jave-nativebin-osx64/3.5.0/jave-nativebin-osx64-3.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-io/commons-io/2.17.0/commons-io-2.17.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ws/schild/jave-nativebin-linux-arm64/3.5.0/jave-nativebin-linux-arm64-3.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/jhlabs/filters/2.0.235/filters-2.0.235.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ws/schild/jave-nativebin-linux32/3.5.0/jave-nativebin-linux32-3.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/formdev/flatlaf/3.6.1/flatlaf-3.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ws/schild/jave-nativebin-win32/3.5.0/jave-nativebin-win32-3.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/swinglabs/swingx/1.6.1/swingx-1.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/swinglabs/swing-worker/1.1/swing-worker-1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-simple/2.0.16/slf4j-simple-2.0.16.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ws/schild/jave-all-deps/3.5.0/jave-all-deps-3.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ws/schild/jave-nativebin-win64/3.5.0/jave-nativebin-win64-3.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ws/schild/jave-nativebin-linux64/3.5.0/jave-nativebin-linux64-3.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ws/schild/jave-nativebin-linux-arm32/3.5.0/jave-nativebin-linux-arm32-3.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/2.0.16/slf4j-api-2.0.16.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/json/json/20250517/json-20250517.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/ws/schild/jave-nativebin-osxm1/3.5.0/jave-nativebin-osxm1-3.5.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/mpatric/mp3agic/0.9.1/mp3agic-0.9.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/netbeans/external/AbsoluteLayout/RELEASE250/AbsoluteLayout-RELEASE250.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

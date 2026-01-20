@@ -45,8 +45,6 @@ public class Settings {
         } catch (Exception e) {
             System.err.println("Failed to load resource settings: " + e.getMessage());
         }
-
-        // If all else fails, create default settings
         createDefaultSettings();
     }
 
@@ -55,29 +53,22 @@ public class Settings {
 
         // YouTube settings
         JSONObject youtube = new JSONObject();
-        youtube.put("outputDir", System.getProperty("user.home") + File.separator + "Music" + File.separator + "YouTube");
-        youtube.put("lastUrl", "");
+        youtube.put("outputDir", "");
         youtube.put("playlistMode", false);
-        youtube.put("audioFormat", "m4a");
-        youtube.put("quality", 0);
+        youtube.put("audioFormat", "mp3");
         settings.put("youtube", youtube);
 
         // Spotify settings
         JSONObject spotify = new JSONObject();
-        spotify.put("outputDir", System.getProperty("user.home") + File.separator + "Music" + File.separator + "Spotify");
-        spotify.put("lastUrl", "");
+        spotify.put("outputDir", "");
         spotify.put("playlistMode", false);
-        spotify.put("audioFormat", "m4a");
-        spotify.put("quality", 0);
+        spotify.put("audioFormat", "mp3");
         settings.put("spotify", spotify);
 
-        // General settings
-        JSONObject general = new JSONObject();
-        general.put("embedThumbnails", true);
-        general.put("embedMetadata", true);
-        general.put("deleteSourceFiles", true);
-        general.put("theme", "light");
-        settings.put("general", general);
+        // Theme settings
+        JSONObject theme = new JSONObject();
+        theme.put("theme", "dark");
+        settings.put("theme", theme);
 
         // Window settings
         JSONObject window = new JSONObject();
@@ -106,19 +97,11 @@ public class Settings {
         }
         JSONObject youtube = settings.getJSONObject("youtube");
         if (!youtube.has("outputDir")) {
-            youtube.put("outputDir", System.getProperty("user.home") + File.separator + "Music" + File.separator + "YouTube");
-            modified = true;
-        }
-        if (!youtube.has("lastUrl")) {
-            youtube.put("lastUrl", "");
+            youtube.put("outputDir","");
             modified = true;
         }
         if (!youtube.has("audioFormat")) {
-            youtube.put("audioFormat", "m4a");
-            modified = true;
-        }
-        if (!youtube.has("quality")) {
-            youtube.put("quality", 0);
+            youtube.put("audioFormat", "mp3");
             modified = true;
         }
         if (!youtube.has("playlistMode")) {
@@ -133,19 +116,11 @@ public class Settings {
         }
         JSONObject spotify = settings.getJSONObject("spotify");
         if (!spotify.has("outputDir")) {
-            spotify.put("outputDir", System.getProperty("user.home") + File.separator + "Music" + File.separator + "Spotify");
-            modified = true;
-        }
-        if (!spotify.has("lastUrl")) {
-            spotify.put("lastUrl", "");
+            spotify.put("outputDir", "");
             modified = true;
         }
         if (!spotify.has("audioFormat")) {
-            spotify.put("audioFormat", "m4a");
-            modified = true;
-        }
-        if (!spotify.has("quality")) {
-            spotify.put("quality", 0);
+            spotify.put("audioFormat", "mp3");
             modified = true;
         }
         if (!spotify.has("playlistMode")) {
@@ -153,31 +128,10 @@ public class Settings {
             modified = true;
         }
 
-        // Check general settings
-        if (!settings.has("general")) {
-            JSONObject general = new JSONObject();
-            general.put("embedThumbnails", true);
-            general.put("embedMetadata", true);
-            general.put("deleteSourceFiles", true);
-            general.put("theme", "light");
-            settings.put("general", general);
-            modified = true;
-        }
-        JSONObject general = settings.getJSONObject("general");
-        if (!general.has("embedThumbnails")) {
-            general.put("embedThumbnails", true);
-            modified = true;
-        }
-        if (!general.has("embedMetadata")) {
-            general.put("embedMetadata", true);
-            modified = true;
-        }
-        if (!general.has("deleteSourceFiles")) {
-            general.put("deleteSourceFiles", true);
-            modified = true;
-        }
-        if (!general.has("theme")) {
-            general.put("theme", "light");
+        // Check Theme settings
+        JSONObject theme = settings.getJSONObject("theme");
+        if (!theme.has("theme")) {
+            theme.put("theme", "dark");
             modified = true;
         }
 
@@ -219,12 +173,7 @@ public class Settings {
 
     // YouTube getters
     public String getYouTubeOutputDir() {
-        return settings.getJSONObject("youtube").optString("outputDir",
-                System.getProperty("user.home") + File.separator + "Music" + File.separator + "YouTube");
-    }
-
-    public String getYouTubeLastUrl() {
-        return settings.getJSONObject("youtube").optString("lastUrl", "");
+        return settings.getJSONObject("youtube").optString("outputDir", "");
     }
 
     public boolean getYouTubePlaylistMode() {
@@ -232,21 +181,12 @@ public class Settings {
     }
 
     public String getYouTubeAudioFormat() {
-        return settings.getJSONObject("youtube").optString("audioFormat", "m4a");
-    }
-
-    public int getYouTubeQuality() {
-        return settings.getJSONObject("youtube").optInt("quality", 0);
+        return settings.getJSONObject("youtube").optString("audioFormat", "mp3");
     }
 
     // Spotify getters
     public String getSpotifyOutputDir() {
-        return settings.getJSONObject("spotify").optString("outputDir",
-                System.getProperty("user.home") + File.separator + "Music" + File.separator + "Spotify");
-    }
-
-    public String getSpotifyLastUrl() {
-        return settings.getJSONObject("spotify").optString("lastUrl", "");
+        return settings.getJSONObject("spotify").optString("outputDir", "");
     }
 
     public boolean getSpotifyPlaylistMode() {
@@ -254,28 +194,13 @@ public class Settings {
     }
 
     public String getSpotifyAudioFormat() {
-        return settings.getJSONObject("spotify").optString("audioFormat", "m4a");
-    }
-
-    public int getSpotifyQuality() {
-        return settings.getJSONObject("spotify").optInt("quality", 0);
+        return settings.getJSONObject("spotify").optString("audioFormat", "mp3");
     }
 
     // General getters
-    public boolean getEmbedThumbnails() {
-        return settings.getJSONObject("general").optBoolean("embedThumbnails", true);
-    }
-
-    public boolean getEmbedMetadata() {
-        return settings.getJSONObject("general").optBoolean("embedMetadata", true);
-    }
-
-    public boolean getDeleteSourceFiles() {
-        return settings.getJSONObject("general").optBoolean("deleteSourceFiles", true);
-    }
 
     public String getTheme() {
-        return settings.getJSONObject("general").optString("theme", "light");
+        return settings.getJSONObject("theme").optString("theme", "dark");
     }
 
     // Window getters
@@ -304,16 +229,14 @@ public class Settings {
         return settings.getJSONObject("statistics").optInt("spotifyDownloads", 0);
     }
 
+    // Settings File Directory Getter
+    public String getUserSettingsFile(){ return USER_SETTINGS_FILE; }
+
     // ==================== Setters ====================
 
     // YouTube setters
     public void setYouTubeOutputDir(String dir) {
         settings.getJSONObject("youtube").put("outputDir", dir);
-        saveSettings();
-    }
-
-    public void setYouTubeLastUrl(String url) {
-        settings.getJSONObject("youtube").put("lastUrl", url);
         saveSettings();
     }
 
@@ -327,19 +250,9 @@ public class Settings {
         saveSettings();
     }
 
-    public void setYouTubeQuality(int quality) {
-        settings.getJSONObject("youtube").put("quality", quality);
-        saveSettings();
-    }
-
     // Spotify setters
     public void setSpotifyOutputDir(String dir) {
         settings.getJSONObject("spotify").put("outputDir", dir);
-        saveSettings();
-    }
-
-    public void setSpotifyLastUrl(String url) {
-        settings.getJSONObject("spotify").put("lastUrl", url);
         saveSettings();
     }
 
@@ -353,29 +266,9 @@ public class Settings {
         saveSettings();
     }
 
-    public void setSpotifyQuality(int quality) {
-        settings.getJSONObject("spotify").put("quality", quality);
-        saveSettings();
-    }
-
-    // General setters
-    public void setEmbedThumbnails(boolean embed) {
-        settings.getJSONObject("general").put("embedThumbnails", embed);
-        saveSettings();
-    }
-
-    public void setEmbedMetadata(boolean embed) {
-        settings.getJSONObject("general").put("embedMetadata", embed);
-        saveSettings();
-    }
-
-    public void setDeleteSourceFiles(boolean delete) {
-        settings.getJSONObject("general").put("deleteSourceFiles", delete);
-        saveSettings();
-    }
-
+    // Theme Setter
     public void setTheme(String theme) {
-        settings.getJSONObject("general").put("theme", theme);
+        settings.getJSONObject("theme").put("theme", theme);
         saveSettings();
     }
 
@@ -409,41 +302,53 @@ public class Settings {
     // ==================== Utility Methods ====================
 
     /**
-     * Get the entire settings JSON object (for advanced usage)
-     */
-    public JSONObject getSettings() {
-        return settings;
-    }
-
-    /**
-     * Export settings to a file
-     */
-    public void exportSettings(String filePath) throws IOException {
-        String jsonString = settings.toString(4);
-        Files.write(Paths.get(filePath), jsonString.getBytes());
-    }
-
-    /**
-     * Import settings from a file
-     */
-    public void importSettings(String filePath) throws IOException {
-        String content = new String(Files.readAllBytes(Paths.get(filePath)));
-        settings = new JSONObject(content);
-        ensureDefaults();
-        saveSettings();
-    }
-
-    /**
      * Reset all settings to defaults
      */
     public void resetToDefaults() {
-        createDefaultSettings();
-    }
+        try {
+            // Create fresh default settings in memory
+            settings = new JSONObject();
 
-    /**
-     * Get the path to the user settings file
-     */
-    public String getSettingsFilePath() {
-        return USER_SETTINGS_FILE;
+            // YouTube settings
+            JSONObject youtube = new JSONObject();
+            youtube.put("outputDir", "");
+            youtube.put("playlistMode", false);
+            youtube.put("audioFormat", "mp3");
+            settings.put("youtube", youtube);
+
+            // Spotify settings
+            JSONObject spotify = new JSONObject();
+            spotify.put("outputDir", "");
+            spotify.put("playlistMode", false);
+            spotify.put("audioFormat", "mp3");
+            settings.put("spotify", spotify);
+
+            // Theme settings
+            JSONObject theme = new JSONObject();
+            theme.put("theme", "dark");
+            settings.put("theme", theme);
+
+            // Window settings
+            JSONObject window = new JSONObject();
+            window.put("width", 700);
+            window.put("height", 900);
+            window.put("lastTab", 0);
+            settings.put("window", window);
+
+            // Statistics
+            JSONObject stats = new JSONObject();
+            stats.put("totalDownloads", 0);
+            stats.put("youtubeDownloads", 0);
+            stats.put("spotifyDownloads", 0);
+            settings.put("statistics", stats);
+
+            // Override the existing file with default settings
+            saveSettings();
+            System.out.println("Settings reset to defaults and file overwritten: " + USER_SETTINGS_FILE);
+
+        } catch (Exception e) {
+            System.err.println("Error during settings reset: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
