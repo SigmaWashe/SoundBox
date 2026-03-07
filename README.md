@@ -64,7 +64,7 @@ Before installing Sound Box, you need to have the following installed on your sy
 
 2. **Python 3.8 or higher**
    - Download from [Python](https://www.python.org/downloads/)
-   - ⚠️ **IMPORTANT**: Check "Add Python to PATH" during installation!
+   - **IMPORTANT**: Check "Add Python to PATH" during installation!
    - **windows**: `winget search python` and download the latest version using `winget install Python.Python[version]`
    - **macOS**: `brew install python3` or download from python.org
    - **Linux**: `sudo apt install python3 python3-pip`
